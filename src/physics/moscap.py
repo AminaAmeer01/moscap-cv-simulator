@@ -39,3 +39,12 @@ def depletion_width(phi_s: float, N_A: float) -> float:
         Depletion width (m)
     """
     return (2 * epsilon_si * phi_s / (q * N_A)) ** 0.5
+
+def semiconductor_capacitance(phi_s: float, N_A: float, area: float) -> float:
+    """
+    Semiconductor depletion capacitance.
+
+    C = ε_si * A / W
+    """
+    W = depletion_width(phi_s, N_A)
+    return epsilon_si * area / W
