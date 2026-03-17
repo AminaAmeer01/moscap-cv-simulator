@@ -48,3 +48,9 @@ def semiconductor_capacitance(phi_s: float, N_A: float, area: float) -> float:
     """
     W = depletion_width(phi_s, N_A)
     return epsilon_si * area / W
+
+def total_capacitance(C_ox: float, C_s: float) -> float:
+    """
+    Total MOS capacitance (series combination)
+    """
+    return 1 / (1 / C_ox + 1 / C_s)
