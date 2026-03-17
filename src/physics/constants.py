@@ -1,4 +1,3 @@
-
 """
 Physical constants for semiconductor MOS capacitor simulations.
 All units are SI unless otherwise noted.
