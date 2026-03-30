@@ -112,8 +112,9 @@ where:
 - tₒₓ — oxide thickness
 
 ### Semiconductor Depletion Width
-![equation](https://latex.codecogs.com/png.image?\dpi{110}W=\sqrt{\frac{2\varepsilon_s\phi_s}{qN_A}})
-
+$$
+W = \sqrt{\frac{2 \varepsilon_s \phi_s}{q N_A}}
+$$
 where:
 
 - εₛ — semiconductor permittivity
@@ -122,7 +123,9 @@ where:
 - Nₐ — doping concentration
 
 ### Semiconductor Capacitance
-![equation](https://latex.codecogs.com/png.image?\dpi{110}C_s=\frac{\varepsilon_sA}{W})
+$$
+C_s = \frac{\varepsilon_s A}{W}
+$$
 
 where:
 
@@ -131,7 +134,9 @@ where:
 - W — depletion width
 
 ### Total MOS Capacitance (series combination)
-![equation](https://latex.codecogs.com/png.image?\dpi{110}\frac{1}{C}=\frac{1}{C_{ox}}+\frac{1}{C_s})
+$$
+\frac{1}{C} = \frac{1}{C_{ox}} + \frac{1}{C_s}
+$$
 
 where:
 - C — total capacitance
@@ -139,8 +144,16 @@ where:
 - Cₛ — semiconductor capacitance
 
 ### Intrinsic Carrier Concentration (temperature_dependent)
-![equation](https://latex.codecogs.com/png.image?\dpi{150}\Large%20n_i(T)=n_{i,300K}\left(\frac{T}{300}\right)^{3/2}\exp\left[-\frac{E_g}{2k_B}\left(\frac{1}{T}-\frac{1}{300}\right)\right])
-
+$$
+n_i(T) = n_{i,300K}
+\left(\frac{T}{300}\right)^{3/2}
+\exp\left[
+-\frac{E_g}{2k_B}
+\left(
+\frac{1}{T} - \frac{1}{300}
+\right)
+\right]
+$$
 where:
 
 - nᵢ(T) — intrinsic carrier concentration
