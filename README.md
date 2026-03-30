@@ -101,7 +101,9 @@ The MOS capacitor is modeled using standard semiconductor physics.
 
 ### Oxide Capacitance
 
-![equation](https://latex.codecogs.com/png.image?\dpi{110}C_{ox}=\frac{\varepsilon_{ox}A}{t_{ox})
+$$
+C_{ox} = \frac{\varepsilon_{ox} A}{t_{ox}}
+$$
 
 where:
 
