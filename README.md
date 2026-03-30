@@ -154,6 +154,7 @@ n_i(T) = n_{i,300K}
 \right)
 \right]
 $$
+
 where:
 
 - nᵢ(T) — intrinsic carrier concentration
