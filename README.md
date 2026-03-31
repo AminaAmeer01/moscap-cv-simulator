@@ -162,6 +162,20 @@ where:
 - E_g — bandgap energy
 - k_B — Boltzmann constant
 
+## Simulation Results
+
+### Intrinsic Carrier Concentration vs Temperature
+
+This plot shows the exponential increase of intrinsic carrier concentration with temperature.
+
+### C–V Curve at Fixed Temperature
+
+The MOS capacitor exhibits depletion region behaviour as expected.
+
+### Temperature Dependent C-V Curves
+
+Temperature affects depletion width and total capaciatnce.
+
 ## Model Assumptions
 
 - Ideal MOS capacitor
