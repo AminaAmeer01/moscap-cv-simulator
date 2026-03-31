@@ -9,14 +9,19 @@
 
 A scientific Python project for simulating **Capacitance–Voltage (C–V) characteristics** of a Metal-Oxide Semiconductor (MOS) capacitor, including **temperature-dependent semiconductor effects**.
 
-This project is designed with research level clarity, modular physics implementation, and reproducible numerial simulations.
+This project is designed with research level clarity, modular physics implementation, and reproducible numerical simulations.
+
+---
+
+## Project Overview
+![MOSCAP Simulation](figures/readme_style.png)
 
 ---
 
 ##  Features
 
 - **Oxide capacitance** calculation
-- **semiconductor depletion capacitance** modeling
+- **Semiconductor depletion capacitance** modeling
 - Simulate **total MOS capacitance (series combination)**
 - **temperature dependent** intrinsic carrier concentration
 - Modular physics-based implementation
@@ -176,7 +181,7 @@ where:
 - No oxide charge
 - Uniform doping
 - Quasi-static capacitance model
-- 
+
 ## Numerical Implementation
 The simulator uses:
 
@@ -195,7 +200,7 @@ The simulator generates:
 ## Design Principles
 
 - Modular architecture
-- Seperation of physics and simulation scripts
+- Separation of physics and simulation scripts
 - No hardcoded paths
 - Testable scientific functions
 - Minimal dependencies (numpy, matplotlib)
@@ -212,7 +217,7 @@ The simulator generates:
 - Interface trap capacitance
 - Full inversion modeling
 - Experimental data fitting
-- TCAD-level simulatiom extension
+- TCAD-level simulation extension
 
 ## License
 MIT License
@@ -220,6 +225,6 @@ MIT License
 ## Author
 Syeda Amina Ameer
 
-Masters in Physics - Materaial Physics & Nanoscience
+Master's in Physics - Materaial Physics & Nanoscience
 
 University of Bologna

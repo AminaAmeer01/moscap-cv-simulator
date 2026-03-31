@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 from src.physics.moscap import (
     oxide_capacitance,
@@ -45,7 +46,13 @@ plt.title("Temperature-Dependent MOS C–V Characteristics")
 plt.legend()
 plt.grid()
 
+# ---- Add here ----
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+FIG_DIR = os.path.join(BASE_DIR, "figures")
+
+os.makedirs(FIG_DIR, exist_ok=True)
+
 # Save figure
-plt.savefig("figures/cv_temperature.png", dpi=300)
+plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=300)
 
 plt.show()
