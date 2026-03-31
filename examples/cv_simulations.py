@@ -30,4 +30,7 @@ plt.ylabel("Capacitance (F)")
 plt.title("MOS Capacitor C–V Curve (Simplified)")
 plt.grid()
 
+# Save figure
+plt.savefig("figures/cv_curve.png", dpi=300)
+
 plt.show()

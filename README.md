@@ -1,5 +1,12 @@
 # MOSCAP C–V Simulator
 
+# MOSCAP C–V Simulator
+
+![Python](https://img.shields.io/badge/Python-3.9+-blue)
+![Physics](https://img.shields.io/badge/Physics-Semiconductor-green)
+![Simulation](https://img.shields.io/badge/Simulation-MOSCAP-orange)
+![Status](https://img.shields.io/badge/Status-Research%20Project-purple)
+
 A scientific Python project for simulating **Capacitance–Voltage (C–V) characteristics** of a Metal-Oxide Semiconductor (MOS) capacitor, including **temperature-dependent semiconductor effects**.
 
 This project is designed with research level clarity, modular physics implementation, and reproducible numerial simulations.

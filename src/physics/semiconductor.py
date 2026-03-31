@@ -31,3 +31,7 @@ def intrinsic_carrier_concentration(T: float) -> float:
     )
 
     return ni
+
+
+def intrinsic_carrier_co():
+    return None

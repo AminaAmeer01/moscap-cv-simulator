@@ -17,4 +17,7 @@ plt.ylabel("Intrinsic Carrier Concentration (1/m^3)")
 plt.title("Intrinsic Carrier Concentration vs Temperature")
 plt.grid()
 
+# Save figure
+plt.savefig("figures/intrinsic_carrier.png", dpi=300)
+
 plt.show()

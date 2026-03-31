@@ -6,8 +6,7 @@ from src.physics.moscap import (
     semiconductor_capacitance,
     total_capacitance,
 )
-from src.physics.semiconductor import intrinsic_carrier_concentration
-
+from src.physics.semiconductor import intrinsic_carrier_co, intrinsic_carrier_concentration
 
 # Parameters
 area = 1e-6          # m^2
@@ -45,5 +44,8 @@ plt.ylabel("Capacitance (F)")
 plt.title("Temperature-Dependent MOS C–V Characteristics")
 plt.legend()
 plt.grid()
+
+# Save figure
+plt.savefig("figures/cv_temperature.png", dpi=300)
 
 plt.show()
