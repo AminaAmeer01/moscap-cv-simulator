@@ -180,13 +180,22 @@ where:
 
 This plot shows the exponential increase of intrinsic carrier concentration with temperature.
 
+![Intrinsic Carrier](figures/intrinsic_carrier.png)
+---
+
 ### C–V Curve at Fixed Temperature
 
 The MOS capacitor exhibits depletion region behaviour as expected.
 
+![C-V Simulation](figures/cv_curve.png)
+---
+
 ### Temperature Dependent C-V Curves
 
 Temperature affects depletion width and total capaciatnce.
+
+![Temperature](figures/cv_temperature.png)
+---
 
 ## Model Assumptions
 
