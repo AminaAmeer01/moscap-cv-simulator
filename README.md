@@ -1,7 +1,5 @@
 # MOSCAP C–V Simulator
 
-# MOSCAP C–V Simulator
-
 ![Python](https://img.shields.io/badge/Python-3.9+-blue)
 ![Physics](https://img.shields.io/badge/Physics-Semiconductor-green)
 ![Simulation](https://img.shields.io/badge/Simulation-MOSCAP-orange)
