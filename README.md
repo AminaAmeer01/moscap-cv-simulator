@@ -1,6 +1,5 @@
 # MOSCAP C–V Simulator
 
-# MOSCAP C–V Simulator
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue)
 ![Physics](https://img.shields.io/badge/Physics-Semiconductor-green)
@@ -51,7 +50,8 @@ moscap-cv-simulator/
 │
 ├── tests/               # Unit tests
 │   └── test_moscap.py
-│
+
+│── figures/
 ├── requirements.txt
 └── README.md
 ```
@@ -195,6 +195,14 @@ The MOS capacitor exhibits depletion region behaviour as expected.
 Temperature affects depletion width and total capaciatnce.
 
 ![Temperature](figures/cv_temperature.png)
+---
+
+### C–V Animation
+
+Temperature-dependent MOS capacitor behaviour (animated):
+
+![C-V Animation](figures/cv_animation.gif)
+
 ---
 
 ## Model Assumptions
