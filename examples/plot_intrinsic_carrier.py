@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 from src.physics.semiconductor import intrinsic_carrier_concentration
 
@@ -17,7 +18,13 @@ plt.ylabel("Intrinsic Carrier Concentration (1/m^3)")
 plt.title("Intrinsic Carrier Concentration vs Temperature")
 plt.grid()
 
+# ---- Add here ----
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+FIG_DIR = os.path.join(BASE_DIR, "figures")
+
+os.makedirs(FIG_DIR, exist_ok=True)
+
 # Save figure
-plt.savefig("figures/intrinsic_carrier.png", dpi=300)
+plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=300)
 
 plt.show()

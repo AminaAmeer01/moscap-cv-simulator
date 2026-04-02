@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+
 from src.physics.moscap import (
     oxide_capacitance,
     semiconductor_capacitance,
@@ -52,7 +53,9 @@ FIG_DIR = os.path.join(BASE_DIR, "figures")
 
 os.makedirs(FIG_DIR, exist_ok=True)
 
+
 # Save figure
-plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=300)
+plt.savefig(os.path.join(FIG_DIR, "cv_temperature.png"), dpi=300)
+
 
 plt.show()
