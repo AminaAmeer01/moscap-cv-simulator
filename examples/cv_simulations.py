@@ -23,7 +23,7 @@ for phi in phi_s:
     C_total.append(C)
 
 # Plot
-plt.figure()
+plt.figure(figsize=(5,3))
 plt.plot(phi_s, C_total)
 plt.xlabel("Surface Potential (V)")
 plt.ylabel("Capacitance (F)")
@@ -31,6 +31,6 @@ plt.title("MOS Capacitor C–V Curve (Simplified)")
 plt.grid()
 
 # Save figure
-plt.savefig("figures/cv_curve.png", dpi=300)
+plt.savefig("figures/cv_curve.png", dpi=150)
 
 plt.show()

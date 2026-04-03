@@ -21,7 +21,7 @@ temperatures = [200, 300, 400]
 # Surface potential sweep
 phi_s = np.linspace(0.01, 0.6, 100)
 
-plt.figure()
+plt.figure(figsize=(5,3))
 
 for T in temperatures:
 
@@ -55,7 +55,7 @@ os.makedirs(FIG_DIR, exist_ok=True)
 
 
 # Save figure
-plt.savefig(os.path.join(FIG_DIR, "cv_temperature.png"), dpi=300)
+plt.savefig(os.path.join(FIG_DIR, "cv_temperature.png"), dpi=150)
 
 
 plt.show()
