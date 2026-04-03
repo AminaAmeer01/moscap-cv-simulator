@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import imageio
+import imageio.v2 as imageio
 import os
 
 from src.physics.moscap import (
@@ -9,12 +9,18 @@ from src.physics.moscap import (
     total_capacitance
 )
 
+# Get project root directory
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+FIGURES_DIR = os.path.join(BASE_DIR, "figures")
+
+os.makedirs(FIGURES_DIR, exist_ok=True)
+
 # Parameters
 area = 1e-6
 N_A = 1e23
 
 voltages = np.linspace(0.01, 1, 100)
-temperatures = [250, 275, 300, 325, 350]
+temperatures = [200, 250, 300, 350, 400]
 
 os.makedirs("figures", exist_ok=True)
 
@@ -25,8 +31,7 @@ for T in temperatures:
     capacitance = []
 
     for V in voltages:
-
-        phi_s = V   # simple approximation
+        phi_s = V * (T / 300)
 
         C_ox = oxide_capacitance(area)
         C_s = semiconductor_capacitance(phi_s, N_A, area)
@@ -41,12 +46,13 @@ for T in temperatures:
     plt.ylabel("Capacitance (F)")
     plt.title(f"MOS C-V at {T} K")
 
-    filename = f"figures/frame_{T}.png"
+    filename = os.path.join(FIGURES_DIR, f"frame_{T}.png")
     plt.savefig(filename)
     plt.close()
 
     images.append(imageio.imread(filename))
 
-imageio.mimsave("figures/cv_animation.gif", images, duration=0.8)
+gif_path = os.path.join(FIGURES_DIR, "cv_animation.gif")
+imageio.mimsave(gif_path, images, duration=0.8)
 
 print("GIF saved to figures/cv_animation.gif")
