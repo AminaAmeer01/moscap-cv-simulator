@@ -53,6 +53,6 @@ for T in temperatures:
     images.append(imageio.imread(filename))
 
 gif_path = os.path.join(FIGURES_DIR, "cv_animation.gif")
-imageio.mimsave(gif_path, images, duration=0.8)
+imageio.mimsave(gif_path, images, duration=1.5)
 
 print("GIF saved to figures/cv_animation.gif")
