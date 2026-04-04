@@ -1,4 +1,5 @@
-# MOSCAP C–V Simulator
+# MOS Capacitor C–V Simulator  
+### Physics-Based Semiconductor Modeling Project
 
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue)
@@ -16,6 +17,19 @@ This project is designed with research level clarity, modular physics implementa
 ![MOSCAP Simulation](figures/readme_style.png)
 
 ---
+## Scientific Motivation
+
+MOS capacitors are fundamental building blocks in semiconductor devices, 
+including MOSFETs and CMOS technology. Understanding capacitance–voltage 
+(C–V) characteristics is essential for:
+
+- Doping profile extraction
+- Oxide quality analysis
+- Interface trap characterization
+- Semiconductor device design
+
+This project implements a simplified but physically meaningful 
+MOS capacitor model for educational and research purposes.
 
 ##  Features
 
@@ -249,6 +263,21 @@ The simulator generates:
 - Full inversion modeling
 - Experimental data fitting
 - TCAD-level simulation extension
+
+## Reproducibility
+
+All figures in this repository can be reproduced by running the 
+simulation scripts in the `examples/` folder.
+
+This ensures transparency and scientific reproducibility of the MOS capacitor simulations.
+
+## Future Research Directions
+
+- Non-ideal MOS capacitor modeling
+- Frequency-dependent C–V analysis
+- Interface trap modeling
+- Experimental MOS data comparison
+- TCAD-level numerical simulation
 
 ## License
 MIT License
