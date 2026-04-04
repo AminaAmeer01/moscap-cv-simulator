@@ -11,7 +11,7 @@ T = np.linspace(200, 400, 100)
 ni = [intrinsic_carrier_concentration(t) for t in T]
 
 # Plot
-plt.figure(figsize=(5,3))
+plt.figure(figsize=(4.5,3))
 plt.plot(T, ni)
 plt.xlabel("Temperature (K)")
 plt.ylabel("Intrinsic Carrier Concentration (1/m^3)")
@@ -25,6 +25,7 @@ FIG_DIR = os.path.join(BASE_DIR, "figures")
 os.makedirs(FIG_DIR, exist_ok=True)
 
 # Save figure
-plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=150)
+plt.tight_layout()
+plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=150, bbox_inches="tight")
 
 plt.show()
