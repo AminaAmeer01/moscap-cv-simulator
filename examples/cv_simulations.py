@@ -1,5 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+FIGURES_DIR = os.path.join(BASE_DIR, "figures")
+
+os.makedirs(FIGURES_DIR, exist_ok=True)
 
 from src.physics.moscap import (
     oxide_capacitance,
@@ -34,7 +40,7 @@ plt.grid()
 
 # Save figure
 plt.tight_layout()
-plt.savefig("figures/cv_curve.png", dpi=120, bbox_inches="tight")
+plt.savefig(os.path.join(FIGURES_DIR, "cv_curve.png"), dpi=120, bbox_inches="tight")
 
 plt.close()   # ← IMPORTANT
 
