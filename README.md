@@ -279,9 +279,6 @@ This ensures transparency and scientific reproducibility of the MOS capacitor si
 - Experimental MOS data comparison
 - TCAD-level numerical simulation
 
-## License
-MIT License
-
 ## Author
 Syeda Amina Ameer
 
