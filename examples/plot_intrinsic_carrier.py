@@ -1,31 +1,25 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 
-from src.physics.semiconductor import intrinsic_carrier_concentration
+from src.physics.simulation import (
+    compute_intrinsic_vs_temperature,
+    plot_intrinsic_vs_temperature
+)
 
 # Temperature range
-T = np.linspace(200, 400, 100)
+temperatures = np.linspace(200, 400, 100)
 
-# Compute ni(T)
-ni = [intrinsic_carrier_concentration(t) for t in T]
+# Compute
+T, ni = compute_intrinsic_vs_temperature(temperatures)
 
 # Plot
-plt.figure(figsize=(4.5,3))
-plt.plot(T, ni)
-plt.xlabel("Temperature (K)")
-plt.ylabel("Intrinsic Carrier Concentration (1/m^3)")
-plt.title("Intrinsic Carrier Concentration vs Temperature")
-plt.grid()
+plt = plot_intrinsic_vs_temperature(T, ni)
 
-# ---- Add here ----
+# Save path
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 FIG_DIR = os.path.join(BASE_DIR, "figures")
-
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# Save figure
 plt.tight_layout()
-plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=150, bbox_inches="tight")
-
+plt.savefig(os.path.join(FIG_DIR, "intrinsic_carrier.png"), dpi=150)
 plt.show()

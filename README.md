@@ -1,5 +1,8 @@
 # MOS Capacitor C–V Simulator  
-### Physics-Based Semiconductor Modeling Project
+
+### Physics-Based Semiconductor Device Modeling Project
+
+> A modular and testable scientific simulation framework for MOS capacitor analysis.
 
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue)
@@ -9,7 +12,7 @@
 
 A scientific Python project for simulating **Capacitance–Voltage (C–V) characteristics** of a Metal-Oxide Semiconductor (MOS) capacitor, including **temperature-dependent semiconductor effects**.
 
-This project is designed with research level clarity, modular physics implementation, and reproducible numerical simulations.
+This project is designed with research-level clarity, modular physics implementation, and reproducible numerical simulations.
 
 ---
 
@@ -36,7 +39,7 @@ MOS capacitor model for educational and research purposes.
 - **Oxide capacitance** calculation
 - **Semiconductor depletion capacitance** modeling
 - Simulate **total MOS capacitance (series combination)**
-- **temperature dependent** intrinsic carrier concentration
+- **temperature-dependent** intrinsic carrier concentration
 - Modular physics-based implementation
 - Scientific visualization of MOS behaviour
 ### Generated Plots:
@@ -65,7 +68,7 @@ moscap-cv-simulator/
 ├── tests/               # Unit tests
 │   └── test_moscap.py
 
-│── figures/
+├── figures/
 ├── requirements.txt
 └── README.md
 ```
@@ -188,6 +191,56 @@ where:
 - E_g — bandgap energy
 - k_B — Boltzmann constant
 
+## Advanced MOS Modeling
+
+This model is implemented in the `moscap.py` module and used in the advanced simulation pipeline.
+
+In addition to the basic depletion-based formulation, this project implements a **regime-aware MOS capacitance model**.
+
+The MOS capacitor is modeled across three physical regimes:
+
+### Accumulation (φₛ < 0)
+- Majority carriers accumulate at the interface  
+- Capacitance approaches oxide capacitance:  
+  C ≈ Cₒₓ  
+
+---
+
+### Depletion (0 < φₛ < 2φ_F)
+- Space-charge region forms in the semiconductor  
+- Capacitance decreases due to increasing depletion width  
+
+---
+
+### Strong Inversion (φₛ > 2φ_F)
+- Minority carriers dominate near the interface  
+- In low-frequency approximation:  
+  C ≈ Cₒₓ  
+
+---
+
+### Implementation
+
+This behavior is implemented using a **piecewise physical model**:
+The regime-based behavior is implemented in the `mos_capacitance_regime` function within `moscap.py`.
+- Accumulation → C = Cₒₓ  
+- Depletion → series capacitance  
+- Inversion → C ≈ Cₒₓ  
+
+This approach captures the essential qualitative behavior of MOS capacitors without requiring full numerical Poisson–Boltzmann solutions.
+
+---
+
+### Limitations of the Model
+
+- No self-consistent electrostatic solver  
+- No frequency-dependent (HF/LF) modeling  
+- No interface trap capacitance (C_it)  
+- Flat-band voltage not fully coupled into simulation  
+
+Despite these simplifications, the model reproduces **physically meaningful C–V characteristics**.
+
+This modeling approach allows a balance between physical realism and computational simplicity, making it suitable for educational and exploratory simulations.
 ## Simulation Results
 
 ### Intrinsic Carrier Concentration vs Temperature
@@ -199,14 +252,14 @@ This plot shows the exponential increase of intrinsic carrier concentration with
 
 ### C–V Curve at Fixed Temperature
 
-The MOS capacitor exhibits depletion region behaviour as expected.
+The simulated C–V curve shows the expected transition from depletion behavior to a stabilized capacitance regime, consistent with MOS capacitor physics.
 
 ![C-V Simulation](figures/cv_curve.png)
 ---
 
 ### Temperature Dependent C-V Curves
 
-Temperature affects depletion width and total capaciatnce.
+Temperature affects depletion width and total capacitance.
 
 ![Temperature](figures/cv_temperature.png)
 ---
@@ -218,6 +271,20 @@ Temperature-dependent MOS capacitor behaviour (animated):
 ![C-V Animation](figures/cv_animation.gif)
 
 ---
+## Physical Interpretation of Results
+
+The simulated C–V characteristics reproduce key semiconductor behaviors:
+
+- In accumulation, capacitance approaches the oxide limit (Cₒₓ)
+- In depletion, capacitance decreases due to widening depletion region
+- In inversion, capacitance stabilizes due to minority carrier response (low-frequency approximation)
+
+Temperature-dependent simulations show:
+
+- Exponential increase in intrinsic carrier concentration
+- Corresponding scaling effects on capacitance behavior
+
+These results are consistent with semiconductor device theory and validate the implemented physical model.
 
 ## Model Assumptions
 
@@ -252,7 +319,7 @@ The simulator generates:
 
 ## Limitations
  - Ideal MOS approximation
- - No inversion regime modeling
+ - - Simplified inversion regime (low-frequency approximation)
  - No interface traps
  - Simplified temperature dependence
  - 
@@ -285,6 +352,6 @@ MIT License
 ## Author
 Syeda Amina Ameer
 
-Master's in Physics - Materaial Physics & Nanoscience
+Master's in Physics - Material Physics & Nanoscience
 
 University of Bologna
