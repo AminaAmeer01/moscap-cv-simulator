@@ -1,5 +1,7 @@
 import math
 
+from src.physics.semiconductor import intrinsic_carrier_concentration
+
 from src.physics.moscap import (
     oxide_capacitance,
     depletion_width,
@@ -50,3 +52,23 @@ def test_no_nan_outputs():
     """Ensure functions do not return NaN values."""
     C = oxide_capacitance(1e-6)
     assert not math.isnan(C)
+
+def test_intrinsic_carrier_positive():
+    """
+    Intrinsic carrier concentration must remain positive.
+    """
+    ni = intrinsic_carrier_concentration(300)
+
+    assert ni > 0
+
+def test_intrinsic_carrier_increases_with_temperature():
+
+    """
+    Intrinsic carrier concentration should increase with temperature.
+    """
+    ni_low = intrinsic_carrier_concentration(250)
+    ni_high = intrinsic_carrier_concentration(350)
+
+    assert ni_high > ni_low
+
+
