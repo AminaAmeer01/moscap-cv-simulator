@@ -2,10 +2,25 @@ from .constants import epsilon_ox, tox_default, epsilon_si, q
 
 
 def oxide_capacitance(area: float, tox: float = tox_default) -> float:
+    """
+    Calculate oxide capacitance.
+    """
+
+    if area <= 0:
+        raise ValueError("Area must be positive")
+
+    if tox <= 0:
+        raise ValueError("Oxide thickness must be positive")
+
     return epsilon_ox * area / tox
 
 
 def depletion_width(phi_s: float, N_A: float) -> float:
+    if phi_s < 0:
+        raise ValueError("Surface potential must be non-negative")
+
+    if N_A <= 0:
+        raise ValueError("Doping concentration must be positive")
     return (2 * epsilon_si * phi_s / (q * N_A)) ** 0.5
 
 

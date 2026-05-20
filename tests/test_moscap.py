@@ -1,4 +1,5 @@
 import math
+import pytest
 
 from src.physics.semiconductor import intrinsic_carrier_concentration
 
@@ -71,4 +72,16 @@ def test_intrinsic_carrier_increases_with_temperature():
 
     assert ni_high > ni_low
 
+def test_negative_temperature_raises():
+    """
+    Negative temperature should raise ValueError.
+    """
+    with pytest.raises(ValueError):
+        intrinsic_carrier_concentration(-100)
 
+def test_negative_area_raises():
+    """
+    Negative capacitor area should raise ValueError.
+    """
+    with pytest.raises(ValueError):
+        oxide_capacitance(-1e-6)

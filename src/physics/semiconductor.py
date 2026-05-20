@@ -20,6 +20,8 @@ def intrinsic_carrier_concentration(T: float) -> float:
     float
         Intrinsic carrier concentration (1/m^3)
     """
+    if T <= 0:
+        raise ValueError("Temperature must be positive")
 
     T0 = 300  # reference temperature (K)
 
