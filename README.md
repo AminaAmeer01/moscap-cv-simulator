@@ -42,6 +42,7 @@ MOS capacitor model for educational and research purposes.
 - **temperature-dependent** intrinsic carrier concentration
 - Modular physics-based implementation
 - Scientific visualization of MOS behaviour
+
 ### Generated Plots:
   - Intrinsic carrier concentration vs temperature
   - C–V characteristics at fixed temperature
@@ -241,6 +242,15 @@ This approach captures the essential qualitative behavior of MOS capacitors with
 Despite these simplifications, the model reproduces **physically meaningful C–V characteristics**.
 
 This modeling approach allows a balance between physical realism and computational simplicity, making it suitable for educational and exploratory simulations.
+
+## Self-Consistent Electrostatic Model
+
+The MOS capacitor is additionally modeled using a numerical Poisson solver
+to compute electrostatic potential self-consistently.
+
+This replaces analytical surface potential assumptions with a PDE-based model,
+providing a closer approximation to TCAD-style simulations.
+
 ## Simulation Results
 
 ### Intrinsic Carrier Concentration vs Temperature
