@@ -251,6 +251,53 @@ to compute electrostatic potential self-consistently.
 This replaces analytical surface potential assumptions with a PDE-based model,
 providing a closer approximation to TCAD-style simulations.
 
+## Numerical Poisson Solver
+
+This project includes a finite-difference implementation of the one-dimensional Poisson equation for semiconductor electrostatics.
+
+The solver computes electrostatic potential profiles from spatial charge distributions using iterative relaxation methods.
+
+### Governing Equation
+
+$$
+\frac{d^2 \phi}{dx^2} = -\frac{\rho(x)}{\varepsilon}
+$$
+
+where:
+
+- $\phi$ — electrostatic potential  
+- $\rho(x)$ — charge density distribution  
+- $\varepsilon$ — semiconductor permittivity  
+
+### Features
+
+- Finite-difference discretization
+- Iterative numerical relaxation
+- Spatial electrostatic potential profiles
+- Foundation for future TCAD-level semiconductor simulations
+
+### Numerical Method
+
+The Poisson equation is discretized using a finite-difference approximation:
+
+$$
+\phi_i =
+\frac{1}{2}
+\left(
+\phi_{i+1}
++
+\phi_{i-1}
++
+\frac{\Delta x^2 \rho_i}{\varepsilon}
+\right)
+$$
+
+The electrostatic potential is solved iteratively until convergence.
+
+### Example Numerical Solution
+
+![Poisson Solver](figures/poisson_solution.png)
+
 ## Simulation Results
 
 ### Intrinsic Carrier Concentration vs Temperature
