@@ -288,6 +288,13 @@ Oxide thickness strongly affects oxide capacitance and overall MOS electrostatic
 
 Thinner oxides produce larger capacitance values due to enhanced gate coupling
 ![Oxide Sweep](figures/tox_sweep.png)
+
+### Gate Voltage Based C–V Simulation
+
+The simulator supports approximate gate-voltage-driven MOS electrostatics, providing a more experimentally relevant C–V representation.
+
+![Gate Voltage CV](figures/gate_voltage_cv.png)
+
 ## Physical Interpretation of Results
 
 The simulated C–V characteristics reproduce key semiconductor behaviors:
