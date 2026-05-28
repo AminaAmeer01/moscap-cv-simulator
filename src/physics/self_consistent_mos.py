@@ -1,17 +1,38 @@
 import numpy as np
 
-from .constants import q, epsilon_si
+from .constants import q, epsilon_si, k_B
 
-
-def charge_density(phi, N_A, ni):
+def charge_density(phi, N_A, ni, T=300):
     """
-    Simplified charge density model.
+    Semiconductor charge density using Boltzmann statistics.
+
+    Parameters
+    ----------
+    phi : ndarray
+        Electrostatic potential
+
+    N_A : float
+        Acceptor doping concentration
+
+    ni : float
+        Intrinsic carrier concentration
+
+    T : float
+        Temperature in Kelvin
     """
 
-    p = N_A * np.exp(-phi)
-    n = ni * np.exp(phi)
+    Vt = k_B * T / q
 
-    return q * (p - n - N_A)
+    # Electron concentration
+    n = ni * np.exp(phi / Vt)
+
+    # Hole concentration
+    p = ni * np.exp(-phi / Vt)
+
+    # Charge density
+    rho = q * (p - n - N_A)
+
+    return rho
 
 
 def solve_potential(phi_init, dx, N_A, ni, iterations=500):
@@ -25,14 +46,21 @@ def solve_potential(phi_init, dx, N_A, ni, iterations=500):
 
     for _ in range(iterations):
 
+        phi_old = phi.copy()
+
         rho = charge_density(phi, N_A, ni)
 
         for i in range(1, N - 1):
             phi[i] = 0.5 * (
-                phi[i+1]
-                + phi[i-1]
-                + dx**2 * rho[i] / epsilon_si
+                    phi[i + 1]
+                    + phi[i - 1]
+                    + dx ** 2 * rho[i] / epsilon_si
             )
+
+        error = np.max(np.abs(phi - phi_old))
+
+        if error < 1e-8:
+            break
 
     return phi
 
@@ -60,7 +88,9 @@ def compute_self_consistent_cv(Vg, N_A, ni, dx=1e-9):
 
         phi_s = surface_potential(phi)
 
-        C = epsilon_si / dx
+        Qs = np.sum(charge_density(phi, N_A, ni)) * dx
+
+        C = np.abs(Qs / max(V, 1e-9))
 
         results.append(C)
 

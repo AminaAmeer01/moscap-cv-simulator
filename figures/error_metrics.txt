@@ -1,0 +1,3 @@
+Mean Relative Error: 1.8207676662863201
+Maximum Relative Error: 5.872343655699495
+RMS Relative Error: 3.127913400847495

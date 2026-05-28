@@ -1,425 +1,643 @@
-# MOS Capacitor C–V Simulator  
+# MOS Capacitor C–V Simulator
 
 ### Physics-Based Semiconductor Device Modeling Project
 
-> A modular and testable scientific simulation framework for MOS capacitor analysis.
-
+> A modular, testable, and extensible scientific simulation framework for MOS capacitor electrostatics and C–V analysis.
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue)
 ![Physics](https://img.shields.io/badge/Physics-Semiconductor-green)
 ![Simulation](https://img.shields.io/badge/Simulation-MOSCAP-orange)
+![Numerics](https://img.shields.io/badge/Numerics-Finite%20Difference-red)
 ![Status](https://img.shields.io/badge/Status-Research%20Project-purple)
 
-A scientific Python project for simulating **Capacitance–Voltage (C–V) characteristics** of a Metal-Oxide Semiconductor (MOS) capacitor, including **temperature-dependent semiconductor effects**.
+A scientific Python project for simulating the **Capacitance–Voltage (C–V) characteristics** of Metal–Oxide–Semiconductor (MOS) capacitors using analytical semiconductor physics, regime-based electrostatic models, and numerical Poisson solvers.
 
-This project is designed with research-level clarity, modular physics implementation, and reproducible numerical simulations.
+The project combines:
+
+- Semiconductor device physics
+- Numerical electrostatics
+- Finite-difference methods
+- Self-consistent iterative solvers
+- Scientific visualization
+- Modular scientific software engineering
+
+The simulator is designed for educational, computational physics, and exploratory semiconductor modeling applications.
 
 ---
 
-## Project Overview
+# Project Overview
+
 ![MOSCAP Simulation](figures/readme_style.png)
 
 ---
-## Scientific Motivation
 
-MOS capacitors are fundamental building blocks in semiconductor devices, 
-including MOSFETs and CMOS technology. Understanding capacitance–voltage 
-(C–V) characteristics is essential for:
+# Scientific Motivation
+
+MOS capacitors are fundamental structures in semiconductor technology and form the electrostatic foundation of:
+
+- MOSFETs
+- CMOS integrated circuits
+- High-voltage semiconductor devices
+- Semiconductor sensors
+- Nanoelectronic systems
+
+Understanding MOS C–V behavior is essential for:
 
 - Doping profile extraction
-- Oxide quality analysis
-- Interface trap characterization
-- Semiconductor device design
+- Oxide characterization
+- Interface analysis
+- Threshold voltage studies
+- Semiconductor process optimization
+- Device reliability analysis
 
-This project implements a simplified but physically meaningful 
-MOS capacitor model for educational and research purposes.
-
-##  Features
-
-- **Oxide capacitance** calculation
-- **Semiconductor depletion capacitance** modeling
-- Simulate **total MOS capacitance (series combination)**
-- **temperature-dependent** intrinsic carrier concentration
-- Modular physics-based implementation
-- Scientific visualization of MOS behaviour
-
-### Generated Plots:
-  - Intrinsic carrier concentration vs temperature
-  - C–V characteristics at fixed temperature
-  - C–V curves at multiple temperatures
+This project implements physically meaningful MOS electrostatics while maintaining numerical simplicity and modular software structure.
 
 ---
 
-## Project Structure
+# Features
 
-```
+## Semiconductor Physics
+
+- Oxide capacitance modeling
+- Depletion-region electrostatics
+- Semiconductor capacitance calculations
+- Temperature-dependent intrinsic carrier concentration
+- Regime-aware MOS electrostatics
+- Flat-band voltage support
+- Approximate gate-voltage electrostatics
+
+## Numerical Modeling
+
+- Finite-difference Poisson solver
+- Iterative electrostatic relaxation
+- Self-consistent electrostatic framework
+- Numerical error analysis
+- Analytical vs numerical comparison
+
+## Software Engineering
+
+- Modular project architecture
+- Separated physics and visualization layers
+- Unit-tested scientific functions
+- Reproducible simulations
+- Extensible numerical framework
+
+## Visualization
+
+The simulator generates:
+
+- Intrinsic carrier concentration plots
+- MOS C–V curves
+- Temperature-dependent C–V behavior
+- Oxide-thickness sweeps
+- Numerical electrostatic solutions
+- Analytical vs numerical comparisons
+- Relative error analysis
+
+---
+
+# Project Structure
+
+```text
 moscap-cv-simulator/
 │
-├── src/                 # Core physics modules
+├── src/
 │   └── physics/
-│       ├── moscap.py
+│       ├── constants.py
 │       ├── semiconductor.py
-│       └── constants.py
+│       ├── moscap.py
+│       ├── simulation.py
+│       ├── poisson.py
+│       ├── electrostatics.py
+│       └── self_consistent_mos.py
 │
-├── examples/            # Simulation scripts
+├── examples/
+│   ├── plot_intrinsic_carrier.py
 │   ├── cv_simulations.py
 │   ├── cv_temperature.py
-│   └── plot_intrinsic_carrier.py
+│   ├── tox_sweep.py
+│   ├── doping_sweep.py
+│   ├── gate_voltage_cv.py
+│   ├── theory_comparison.py
+│   ├── numerical_error_analysis.py
+│   └── poisson_demo.py
 │
-├── tests/               # Unit tests
-│   └── test_moscap.py
-
+├── tests/
+│   ├── test_moscap.py
+│   ├── test_cv.py
+│   ├── test_semiconductor.py
+│   └── test_poisson.py
+│
 ├── figures/
+│
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .github/
+    └── workflows/
+        └── python-tests.yml
 ```
 
 ---
 
-##  Installation
+# Installation
 
-### Clone the repository:
+## Clone Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/moscap-cv-simulator.git
 cd moscap-cv-simulator
-````
+```
 
-### Create virtual environment:
+## Create Virtual Environment
 
 ```bash
 python -m venv venv
 ```
-### Activate environment
-##### Linux/Mac
+
+## Activate Environment
+
+### Linux / macOS
+
 ```bash
 source venv/bin/activate
-````
-##### windows
+```
+
+### Windows
+
 ```bash
 venv\Scripts\activate
-````
-### Install dependencies
+```
+
+## Install Dependencies
+
 ```bash
 pip install -r requirements.txt
-````
+```
 
-## How to Run
+---
 
-### Intrinsic carrier concentration
+# How to Run
+
+## Intrinsic Carrier Concentration
+
 ```bash
 python examples/plot_intrinsic_carrier.py
 ```
-### Basic C–V simulation
+
+## Basic MOS C–V Simulation
+
 ```bash
 python examples/cv_simulations.py
-````
-### Temperature-dependent C-V curves
+```
+
+## Temperature-Dependent C–V Curves
+
 ```bash
 python examples/cv_temperature.py
-````
-## Running Tests
+```
+
+## Oxide Thickness Sweep
+
+```bash
+python examples/tox_sweep.py
+```
+
+## Doping Dependence Sweep
+
+```bash
+python examples/doping_sweep.py
+```
+
+## Gate Voltage Based C–V Simulation
+
+```bash
+python examples/gate_voltage_cv.py
+```
+
+## Theory Comparison
+
+```bash
+python examples/theory_comparison.py
+```
+
+## Numerical Error Analysis
+
+```bash
+python examples/numerical_error_analysis.py
+```
+
+## Poisson Solver Demonstration
+
+```bash
+python examples/poisson_demo.py
+```
+
+---
+
+# Running Tests
+
 ```bash
 pytest
 ```
-#### Expected output:
-5 passed
 
-## Physics Background
+## Expected Output
 
-The MOS capacitor is modeled using standard semiconductor physics.
+```text
+10 passed
+```
 
-### Oxide Capacitance
+---
+
+# Physics Background
+
+The simulator models MOS capacitor electrostatics using standard semiconductor device theory.
+
+---
+
+# Oxide Capacitance
 
 $$
-C_{ox} = \frac{\varepsilon_{ox} A}{t_{ox}}
-$$
-
-where:
-
-- εₒₓ — oxide permittivity  
-- A — capacitor area  
-- tₒₓ — oxide thickness
-
-### Semiconductor Depletion Width
-$$
-W = \sqrt{\frac{2 \varepsilon_s \phi_s}{q N_A}}
-$$
-where:
-
-- εₛ — semiconductor permittivity
-- ϕₛ — surface potential
-- q — electron charge
-- Nₐ — doping concentration
-
-### Semiconductor Capacitance
-$$
-C_s = \frac{\varepsilon_s A}{W}
+C_{ox} =
+\frac{\varepsilon_{ox} A}{t_{ox}}
 $$
 
 where:
 
-- εₛ — semiconductor permittivity
-- A — capacitor area
-- W — depletion width
+- $\varepsilon_{ox}$ — oxide permittivity
+- $A$ — capacitor area
+- $t_{ox}$ — oxide thickness
 
-### Total MOS Capacitance (series combination)
+---
+
+# Semiconductor Depletion Width
+
 $$
-\frac{1}{C} = \frac{1}{C_{ox}} + \frac{1}{C_s}
+W =
+\sqrt{
+\frac{
+2 \varepsilon_s \phi_s
+}{
+q N_A
+}
+}
 $$
 
 where:
-- C — total capacitance
-- Cₒₓ — oxide capacitance
-- Cₛ — semiconductor capacitance
 
-### Intrinsic Carrier Concentration (temperature_dependent)
+- $\varepsilon_s$ — semiconductor permittivity
+- $\phi_s$ — surface potential
+- $q$ — elementary charge
+- $N_A$ — acceptor concentration
+
+---
+
+# Semiconductor Capacitance
+
 $$
-n_i(T) = n_{i,300K}
-\left(\frac{T}{300}\right)^{3/2}
-\exp\left[
--\frac{E_g}{2k_B}
+C_s =
+\frac{
+\varepsilon_s A
+}{
+W
+}
+$$
+
+---
+
+# Total MOS Capacitance
+
+The total MOS capacitance is modeled using the series combination:
+
+$$
+\frac{1}{C}
+=
+\frac{1}{C_{ox}}
++
+\frac{1}{C_s}
+$$
+
+---
+
+# Intrinsic Carrier Concentration
+
+The temperature dependence of intrinsic carrier concentration is modeled as:
+
+$$
+n_i(T)
+=
+n_{i,300K}
 \left(
-\frac{1}{T} - \frac{1}{300}
+\frac{T}{300}
+\right)^{3/2}
+\exp
+\left[
+-
+\frac{E_g}{2k_B}
+\left(
+\frac{1}{T}
+-
+\frac{1}{300}
 \right)
 \right]
 $$
 
 where:
 
-- nᵢ(T) — intrinsic carrier concentration
-- T — temperature (Kelvin)
-- E_g — bandgap energy
-- k_B — Boltzmann constant
-
-## Advanced MOS Modeling
-
-This model is implemented in the `moscap.py` module and used in the advanced simulation pipeline.
-
-In addition to the basic depletion-based formulation, this project implements a **regime-aware MOS capacitance model**.
-
-The MOS capacitor is modeled across three physical regimes:
-
-### Accumulation (φₛ < 0)
-- Majority carriers accumulate at the interface  
-- Capacitance approaches oxide capacitance:  
-  C ≈ Cₒₓ  
+- $n_i$ — intrinsic carrier concentration
+- $E_g$ — bandgap energy
+- $k_B$ — Boltzmann constant
+- $T$ — temperature
 
 ---
 
-### Depletion (0 < φₛ < 2φ_F)
-- Space-charge region forms in the semiconductor  
-- Capacitance decreases due to increasing depletion width  
+# Advanced MOS Modeling
+
+In addition to depletion-based analytical modeling, the simulator implements a regime-aware MOS electrostatic model.
+
+The implementation is provided in:
+
+```text
+src/physics/moscap.py
+```
+
+through the function:
+
+```python
+mos_capacitance_regime()
+```
 
 ---
 
-### Strong Inversion (φₛ > 2φ_F)
-- Minority carriers dominate near the interface  
-- In low-frequency approximation:  
-  C ≈ Cₒₓ  
+# MOS Physical Regimes
 
----
-
-### Implementation
-
-This behavior is implemented using a **piecewise physical model**:
-The regime-based behavior is implemented in the `mos_capacitance_regime` function within `moscap.py`.
-- Accumulation → C = Cₒₓ  
-- Depletion → series capacitance  
-- Inversion → C ≈ Cₒₓ  
-
-This approach captures the essential qualitative behavior of MOS capacitors without requiring full numerical Poisson–Boltzmann solutions.
-
----
-
-### Limitations of the Model
-
-- No self-consistent electrostatic solver  
-- No frequency-dependent (HF/LF) modeling  
-- No interface trap capacitance (C_it)  
-- Flat-band voltage not fully coupled into simulation  
-
-Despite these simplifications, the model reproduces **physically meaningful C–V characteristics**.
-
-This modeling approach allows a balance between physical realism and computational simplicity, making it suitable for educational and exploratory simulations.
-
-## Self-Consistent Electrostatic Model
-
-The MOS capacitor is additionally modeled using a numerical Poisson solver
-to compute electrostatic potential self-consistently.
-
-This replaces analytical surface potential assumptions with a PDE-based model,
-providing a closer approximation to TCAD-style simulations.
-
-## Numerical Poisson Solver
-
-This project includes a finite-difference implementation of the one-dimensional Poisson equation for semiconductor electrostatics.
-
-The solver computes electrostatic potential profiles from spatial charge distributions using iterative relaxation methods.
-
-### Governing Equation
+## Accumulation
 
 $$
-\frac{d^2 \phi}{dx^2} = -\frac{\rho(x)}{\varepsilon}
+\phi_s < 0
+$$
+
+Majority carriers accumulate near the oxide interface and the capacitance approaches the oxide capacitance:
+
+$$
+C \approx C_{ox}
+$$
+
+---
+
+## Depletion
+
+$$
+0 < \phi_s < 2\phi_F
+$$
+
+A depletion region forms inside the semiconductor and capacitance decreases as depletion width increases.
+
+---
+
+## Strong Inversion
+
+$$
+\phi_s > 2\phi_F
+$$
+
+Minority carriers dominate near the interface.
+
+Under low-frequency approximation:
+
+$$
+C \approx C_{ox}
+$$
+
+---
+
+# Numerical Poisson Solver
+
+The project includes a finite-difference implementation of the one-dimensional Poisson equation for semiconductor electrostatics.
+
+---
+
+# Governing Equation
+
+$$
+\frac{d^2 \phi}{dx^2}
+=
+-\frac{\rho(x)}{\varepsilon}
 $$
 
 where:
 
-- $\phi$ — electrostatic potential  
-- $\rho(x)$ — charge density distribution  
-- $\varepsilon$ — semiconductor permittivity  
+- $\phi$ — electrostatic potential
+- $\rho(x)$ — charge density distribution
+- $\varepsilon$ — permittivity
 
-### Features
+---
 
-- Finite-difference discretization
-- Iterative numerical relaxation
-- Spatial electrostatic potential profiles
-- Foundation for future TCAD-level semiconductor simulations
+# Numerical Method
 
-### Numerical Method
-
-The Poisson equation is discretized using a finite-difference approximation:
+The Poisson equation is discretized using finite differences:
 
 $$
-\phi_i =
+\phi_i
+=
 \frac{1}{2}
 \left(
 \phi_{i+1}
 +
 \phi_{i-1}
 +
-\frac{\Delta x^2 \rho_i}{\varepsilon}
+\frac{
+\Delta x^2 \rho_i
+}{
+\varepsilon
+}
 \right)
 $$
 
 The electrostatic potential is solved iteratively until convergence.
 
-### Example Numerical Solution
+---
 
-![Poisson Solver](figures/poisson_solution.png)
+# Self-Consistent Electrostatic Solver
 
-## Simulation Results
+The simulator additionally implements a nonlinear self-consistent electrostatic framework.
 
-### Intrinsic Carrier Concentration vs Temperature
+Carrier densities are modeled using Boltzmann statistics:
 
-This plot shows the exponential increase of intrinsic carrier concentration with temperature.
+$$
+n = n_i e^{\phi/V_T}
+$$
+
+$$
+p = n_i e^{-\phi/V_T}
+$$
+
+with thermal voltage:
+
+$$
+V_T = \frac{k_B T}{q}
+$$
+
+The electrostatic potential and charge density are solved iteratively until self-consistency is achieved.
+
+---
+
+# Theory Validation
+
+The simulator compares numerical MOS capacitance against analytical semiconductor theory.
+
+The comparison validates:
+
+- Depletion-region behavior
+- Numerical stability
+- Electrostatic consistency
+- Physical correctness of capacitance evolution
+
+The project includes:
+
+- Analytical vs numerical comparison plots
+- Relative error analysis
+- Quantitative error metrics
+- RMS error evaluation
+
+---
+
+# Simulation Results
+
+## Intrinsic Carrier Concentration
 
 ![Intrinsic Carrier](figures/intrinsic_carrier.png)
+
 ---
 
-### C–V Curve at Fixed Temperature
-
-The simulated C–V curve shows the expected transition from depletion behavior to a stabilized capacitance regime, consistent with MOS capacitor physics.
+## MOS C–V Curve
 
 ![C-V Simulation](figures/cv_curve.png)
+
 ---
 
-### Temperature Dependent C-V Curves
-
-Temperature affects depletion width and total capacitance.
+## Temperature-Dependent C–V
 
 ![Temperature](figures/cv_temperature.png)
----
-
-### C–V Animation
-
-Temperature-dependent MOS capacitor behaviour (animated):
-
-![C-V Animation](figures/cv_animation.gif)
 
 ---
 
-### Oxide Thickeness Dependence
+## Oxide Thickness Sweep
 
-Oxide thickness strongly affects oxide capacitance and overall MOS electrostatic behavior.
-
-Thinner oxides produce larger capacitance values due to enhanced gate coupling
 ![Oxide Sweep](figures/tox_sweep.png)
 
-### Gate Voltage Based C–V Simulation
+---
 
-The simulator supports approximate gate-voltage-driven MOS electrostatics, providing a more experimentally relevant C–V representation.
+## Gate Voltage Based Simulation
 
 ![Gate Voltage CV](figures/gate_voltage_cv.png)
 
-## Physical Interpretation of Results
+---
 
-The simulated C–V characteristics reproduce key semiconductor behaviors:
+## Poisson Solver
 
-- In accumulation, capacitance approaches the oxide limit (Cₒₓ)
-- In depletion, capacitance decreases due to widening depletion region
-- In inversion, capacitance stabilizes due to minority carrier response (low-frequency approximation)
+![Poisson Solver](figures/poisson_solution.png)
 
-Temperature-dependent simulations show:
+---
 
-- Exponential increase in intrinsic carrier concentration
-- Corresponding scaling effects on capacitance behavior
+## Analytical vs Numerical Comparison
 
-These results are consistent with semiconductor device theory and validate the implemented physical model.
+![Theory Comparison](figures/theory_comparison.png)
 
-## Model Assumptions
+---
 
-- Ideal MOS capacitor
-- No interface traps
-- No oxide charge
-- Uniform doping
-- Quasi-static capacitance model
+## Relative Error Analysis
 
-## Numerical Implementation
+![Relative Error](figures/relative_error.png)
+
+---
+
+# Numerical Implementation
+
 The simulator uses:
 
-- NumPy for numerical calculations
-- Matplotlib for plotting
-- Modular physics functions
-- Scientific reproducibility
+- NumPy for numerical computation
+- Matplotlib for scientific visualization
+- Finite-difference electrostatic discretization
+- Iterative relaxation methods
+- Modular scientific software design
 
-## Example Outputs
-The simulator generates:
+The regime-aware MOS behavior is implemented in:
 
-- Exponential increase of intrinsic carrier concentration with temperature
-- Depletion-region C-V behaviour
-- Temperature-dependent capacitance curves
+```python
+mos_capacitance_regime()
+```
 
-## Design Principles
+within:
+
+```text
+src/physics/moscap.py
+```
+
+---
+
+# Design Principles
 
 - Modular architecture
-- Separation of physics and simulation scripts
-- No hardcoded paths
-- Testable scientific functions
-- Minimal dependencies (numpy, matplotlib)
+- Clear separation of physics and plotting
+- Reproducible scientific computation
+- Extensible simulation framework
+- Unit-tested scientific functions
+- Minimal external dependencies
 
-## Limitations
- - Ideal MOS approximation
- - - Simplified inversion regime (low-frequency approximation)
- - No interface traps
- - Simplified temperature dependence
- - 
-## Possible Extensions
+---
 
-- Flat-band voltage modeling
+# Model Assumptions
+
+- Ideal MOS capacitor
+- Uniform doping
+- No interface traps
+- No oxide charge
+- Quasi-static approximation
+- Simplified inversion modeling
+- One-dimensional electrostatics
+
+---
+
+# Limitations
+
+Although physically meaningful, the simulator still uses several simplifying assumptions:
+
+- No full drift-diffusion transport
+- No quantum confinement
+- No frequency-dependent high-frequency C–V
+- No interface trap dynamics
+- No experimental parameter extraction
+- No full TCAD mesh-based discretization
+
+---
+
+# Future Extensions
+
+Potential future developments include:
+
+- High-frequency MOS C–V modeling
 - Interface trap capacitance
-- Full inversion modeling
+- Quantum corrections
 - Experimental data fitting
-- TCAD-level simulation extension
+- Drift-diffusion transport
+- Full nonlinear Poisson–Boltzmann solver
+- 2D semiconductor electrostatics
+- TCAD-level numerical framework
 
-## Reproducibility
+---
 
-All figures in this repository can be reproduced by running the 
-simulation scripts in the `examples/` folder.
+# Reproducibility
 
-This ensures transparency and scientific reproducibility of the MOS capacitor simulations.
+All figures and numerical results can be reproduced directly using the scripts provided in the `examples/` directory.
 
-## Future Research Directions
+The project is designed to support transparent and reproducible computational physics workflows.
 
-- Non-ideal MOS capacitor modeling
-- Frequency-dependent C–V analysis
-- Interface trap modeling
-- Experimental MOS data comparison
-- TCAD-level numerical simulation
+---
 
-## Author
+# Author
+
 Syeda Amina Ameer
 
-Master's in Physics - Material Physics & Nanoscience
+MS Physics — Material Physics & Nanoscience
 
 University of Bologna
