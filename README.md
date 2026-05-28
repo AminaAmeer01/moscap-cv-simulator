@@ -281,6 +281,13 @@ Temperature-dependent MOS capacitor behaviour (animated):
 ![C-V Animation](figures/cv_animation.gif)
 
 ---
+
+### Oxide Thickeness Dependence
+
+Oxide thickness strongly affects oxide capacitance and overall MOS electrostatic behavior.
+
+Thinner oxides produce larger capacitance values due to enhanced gate coupling
+![Oxide Sweep](figures/tox_sweep.png)
 ## Physical Interpretation of Results
 
 The simulated C–V characteristics reproduce key semiconductor behaviors:
