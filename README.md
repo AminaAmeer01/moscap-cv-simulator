@@ -220,7 +220,7 @@ python examples/gate_voltage_cv.py
 python examples/theory_comparison.py
 ```
 
-## Numerical Error Analysis
+## Project structure
 
 ```bash
 python examples/numerical_error_analysis.py
@@ -565,13 +565,10 @@ The regime-aware MOS behavior is implemented in:
 
 ```python
 mos_capacitance_regime()
-```
 
 within:
-
-```text
 src/physics/moscap.py
-```
+
 
 ---
 
