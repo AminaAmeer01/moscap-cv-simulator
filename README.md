@@ -58,39 +58,54 @@ This project implements physically meaningful MOS electrostatics while maintaini
 
 ## Semiconductor Physics
 
-- Oxide capacitance modeling
-- Depletion-region electrostatics
-- Semiconductor capacitance calculations
+- Oxide capacitance (Cox) modeling
+- Semiconductor depletion capacitance
+- Flat-band voltage calculations
+- Fermi potential calculations
+- Strong inversion condition estimation
 - Temperature-dependent intrinsic carrier concentration
 - Regime-aware MOS electrostatics
-- Flat-band voltage support
-- Approximate gate-voltage electrostatics
+  - Accumulation
+  - Depletion
+  - Strong inversion
+- Gate-voltage-based MOS analysis
 
-## Numerical Modeling
+## Numerical Physics 
 
 - Finite-difference Poisson solver
-- Iterative electrostatic relaxation
-- Self-consistent electrostatic framework
-- Numerical error analysis
-- Analytical vs numerical comparison
+- Numerical electrostatic potential calculation
+- Iterative relaxation method
+- Self-consistent charge–potential coupling
+- Numerical convergence analysis
+- Analytical vs numerical validation
+- Relative error analysis
+
+## Scientific Computing
+
+- NumPy-based numerical framework
+- Modular physics architecture
+- Separation of physics and visualization layers
+- Reproducible simulations
+- Extensible simulation framework
 
 ## Software Engineering
 
-- Modular project architecture
-- Separated physics and visualization layers
-- Unit-tested scientific functions
-- Reproducible simulations
-- Extensible numerical framework
+- Objectively tested physics functions
+- Automated unit testing with PyTest
+- Documented scientific modules
+- Research-oriented repository structure
+- Continuous integration ready
 
 ## Visualization
 
 The simulator generates:
 
 - Intrinsic carrier concentration plots
-- MOS C–V curves
-- Temperature-dependent C–V behavior
-- Oxide-thickness sweeps
-- Numerical electrostatic solutions
+- MOS C–V characteristics
+- Temperature-dependent C–V curves
+- Oxide-thickness sweep studies
+- Gate-voltage-based simulations
+- Numerical Poisson solutions
 - Analytical vs numerical comparisons
 - Relative error analysis
 
@@ -243,7 +258,7 @@ pytest
 ## Expected Output
 
 ```text
-10 passed
+22 tests passed
 ```
 
 ---
@@ -367,10 +382,28 @@ mos_capacitance_regime()
 ```
 
 ---
+## Self-Consistent MOS Solver
 
-# MOS Physical Regimes
+Beyond analytical MOS modeling, the project includes a
+self-consistent electrostatic solver.
 
-## Accumulation
+The implementation combines:
+
+- Charge density calculation
+- Poisson equation solution
+- Iterative convergence
+
+This approach is commonly used in semiconductor device
+simulation and TCAD software.
+
+The implementation is provided in:
+
+`src/physics/self_consistent_mos.py`
+---
+
+## MOS Physical Regimes
+
+### Accumulation
 
 $$
 \phi_s < 0
@@ -384,7 +417,7 @@ $$
 
 ---
 
-## Depletion
+### Depletion
 
 $$
 0 < \phi_s < 2\phi_F
@@ -394,7 +427,7 @@ A depletion region forms inside the semiconductor and capacitance decreases as d
 
 ---
 
-## Strong Inversion
+### Strong Inversion
 
 $$
 \phi_s > 2\phi_F
@@ -524,6 +557,14 @@ The project includes:
 ## Oxide Thickness Sweep
 
 ![Oxide Sweep](figures/tox_sweep.png)
+
+---
+
+## Poisson Solver
+
+The project includes a finite-difference solution of the one-dimensional Poisson equation for electrostatic potential calculations.
+
+![Poisson Solver](figures/poisson_solution.png)
 
 ---
 
