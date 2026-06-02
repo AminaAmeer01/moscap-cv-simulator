@@ -382,6 +382,7 @@ mos_capacitance_regime()
 ```
 
 ---
+
 ## Self-Consistent MOS Solver
 
 Beyond analytical MOS modeling, the project includes a
@@ -399,6 +400,15 @@ simulation and TCAD software.
 The implementation is provided in:
 
 `src/physics/self_consistent_mos.py`
+---
+### Example Potential Profile
+
+The project includes an iterative electrostatic solver
+that computes semiconductor potential using repeated
+Poisson updates until convergence.
+
+![Potential](figures/self_consistent_potential.png)
+
 ---
 
 ## MOS Physical Regimes
