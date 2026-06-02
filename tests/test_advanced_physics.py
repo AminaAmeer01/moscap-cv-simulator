@@ -119,3 +119,49 @@ def test_self_consistent_cv_positive():
     )
 
     assert np.all(C >= 0)
+
+def test_self_consistent_convergence():
+    """
+    Self-consistent solver should converge
+    to finite potential values.
+    """
+
+    phi0 = np.zeros(50)
+
+    phi = solve_potential(
+        phi0,
+        dx=1e-9,
+        N_A=1e23,
+        ni=1e16
+    )
+
+    assert np.all(np.isfinite(phi))
+
+def test_charge_density_finite():
+    """
+    Charge density calculation should remain finite.
+    """
+
+    phi = np.zeros(50)
+
+    rho = charge_density(
+        phi,
+        N_A=1e23,
+        ni=1e16
+    )
+
+    assert np.all(np.isfinite(rho))
+def test_poisson_solver_finite():
+    """
+    Poisson solver should return finite values.
+    """
+
+    rho = np.ones(100)
+
+    phi = solve_poisson_1d(
+        rho,
+        dx=1e-9,
+        epsilon=1e-10
+    )
+
+    assert np.all(np.isfinite(phi))
