@@ -7,7 +7,7 @@ sys.path.append(BASE_DIR)
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.physics.simulation import compute_cv_curve_advanced
+from src.physics.simulation import compute_doping_sweep
 
 # =========================================================
 # Parameters
@@ -15,39 +15,41 @@ from src.physics.simulation import compute_cv_curve_advanced
 
 area = 1e-6
 
-# Different doping concentrations
-dopings = [1e21, 1e22, 1e23]
+dopings = [
+    1e21,
+    1e22,
+    1e23
+]
 
-# Surface potential range
-phi_s = np.linspace(-0.5, 1.0, 300)
+phi_s = np.linspace(
+    -0.5,
+    1.0,
+    300
+)
 
 # =========================================================
-# Figure setup
+# Run simulation
+# =========================================================
+
+phi, results = compute_doping_sweep(
+    phi_s,
+    dopings,
+    area
+)
+
+# =========================================================
+# Plot results
 # =========================================================
 
 plt.figure(figsize=(6, 4))
 
-# =========================================================
-# Run simulations
-# =========================================================
-
-for N_A in dopings:
-
-    phi, C = compute_cv_curve_advanced(
-        phi_s,
-        N_A,
-        area
-    )
+for N_A, C in results.items():
 
     plt.plot(
         phi,
         C,
         label=f"N_A = {N_A:.0e} m⁻³"
     )
-
-# =========================================================
-# Plot styling
-# =========================================================
 
 plt.xlabel("Surface Potential (V)")
 plt.ylabel("Capacitance (F)")
@@ -60,16 +62,23 @@ plt.legend()
 # Save figure
 # =========================================================
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+FIG_DIR = os.path.join(
+    BASE_DIR,
+    "figures"
+)
 
-FIG_DIR = os.path.join(BASE_DIR, "figures")
-
-os.makedirs(FIG_DIR, exist_ok=True)
+os.makedirs(
+    FIG_DIR,
+    exist_ok=True
+)
 
 plt.tight_layout()
 
 plt.savefig(
-    os.path.join(FIG_DIR, "doping_sweep.png"),
+    os.path.join(
+        FIG_DIR,
+        "doping_sweep.png"
+    ),
     dpi=150,
     bbox_inches="tight"
 )
