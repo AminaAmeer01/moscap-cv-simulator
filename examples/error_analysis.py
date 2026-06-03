@@ -7,14 +7,8 @@ sys.path.append(BASE_DIR)
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.physics.moscap import (
-    oxide_capacitance,
-    semiconductor_capacitance,
-    total_capacitance
-)
-
 from src.physics.simulation import (
-    compute_cv_curve_advanced
+    compute_error_analysis
 )
 
 # =====================================================
@@ -25,83 +19,70 @@ area = 1e-6
 
 N_A = 1e23
 
-phi_s = np.linspace(0.01, 0.6, 200)
+phi_s = np.linspace(
+    0.01,
+    0.6,
+    200
+)
 
 # =====================================================
-# Analytical solution
+# Run analysis
 # =====================================================
 
-C_ox = oxide_capacitance(area)
-
-C_theory = []
-
-for phi in phi_s:
-
-    C_s = semiconductor_capacitance(
-        phi,
-        N_A,
-        area
-    )
-
-    C_total = total_capacitance(
-        C_ox,
-        C_s
-    )
-
-    C_theory.append(C_total)
-
-C_theory = np.array(C_theory)
-
-# =====================================================
-# Numerical solution
-# =====================================================
-
-phi_num, C_num = compute_cv_curve_advanced(
+(
+    phi,
+    relative_error,
+    mean_error,
+    max_error,
+    rms_error
+) = compute_error_analysis(
     phi_s,
     N_A,
     area
 )
 
 # =====================================================
-# Relative error
+# Print metrics
 # =====================================================
 
-relative_error = np.abs(
-    (C_num - C_theory) / C_theory
+print(
+    "Mean Relative Error :",
+    mean_error
 )
 
-# =====================================================
-# Error metrics
-# =====================================================
-
-mean_error = np.mean(relative_error)
-
-max_error = np.max(relative_error)
-
-rms_error = np.sqrt(
-    np.mean(relative_error**2)
+print(
+    "Maximum Relative Error :",
+    max_error
 )
 
-print("Mean Relative Error :", mean_error)
-
-print("Maximum Relative Error :", max_error)
-
-print("RMS Relative Error :", rms_error)
+print(
+    "RMS Relative Error :",
+    rms_error
+)
 
 # =====================================================
 # Figures directory
 # =====================================================
 
-FIG_DIR = os.path.join(BASE_DIR, "figures")
+FIG_DIR = os.path.join(
+    BASE_DIR,
+    "figures"
+)
 
-os.makedirs(FIG_DIR, exist_ok=True)
+os.makedirs(
+    FIG_DIR,
+    exist_ok=True
+)
 
 # =====================================================
-# Save numerical metrics
+# Save metrics
 # =====================================================
 
 with open(
-    os.path.join(FIG_DIR, "error_metrics.txt"),
+    os.path.join(
+        FIG_DIR,
+        "error_metrics.txt"
+    ),
     "w"
 ) as f:
 
@@ -121,19 +102,27 @@ with open(
 # Plot
 # =====================================================
 
-plt.figure(figsize=(6, 4))
+plt.figure(
+    figsize=(6, 4)
+)
 
 plt.plot(
-    phi_s,
+    phi,
     relative_error,
     linewidth=2
 )
 
-plt.xlabel("Surface Potential (V)")
+plt.xlabel(
+    "Surface Potential (V)"
+)
 
-plt.ylabel("Relative Error")
+plt.ylabel(
+    "Relative Error"
+)
 
-plt.title("Relative Error: Numerical vs Analytical")
+plt.title(
+    "Relative Error: Numerical vs Analytical"
+)
 
 plt.grid()
 
@@ -144,7 +133,10 @@ plt.tight_layout()
 # =====================================================
 
 plt.savefig(
-    os.path.join(FIG_DIR, "relative_error.png"),
+    os.path.join(
+        FIG_DIR,
+        "relative_error.png"
+    ),
     dpi=150,
     bbox_inches="tight"
 )

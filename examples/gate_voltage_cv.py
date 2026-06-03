@@ -7,12 +7,8 @@ sys.path.append(BASE_DIR)
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.physics.electrostatics import (
-    approximate_surface_potential
-)
-
 from src.physics.simulation import (
-    compute_cv_curve_advanced
+    compute_gate_voltage_sweep
 )
 
 # =========================================================
@@ -25,15 +21,12 @@ N_A = 1e23
 # Gate voltage sweep
 Vg = np.linspace(-1, 2, 300)
 
-# Convert gate voltage to surface potential
-phi_s = approximate_surface_potential(Vg)
-
-# Compute advanced MOS C-V
-phi, C = compute_cv_curve_advanced(
-    phi_s,
+V, C = compute_gate_voltage_sweep(
+    Vg,
     N_A,
     area
 )
+
 
 # =========================================================
 # Plot

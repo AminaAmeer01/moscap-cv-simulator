@@ -169,18 +169,17 @@ def compute_cv_vs_temperature(
     results = {}
 
     for T in temperatures:
-
         ni = intrinsic_carrier_concentration(T)
 
-        phi, C = compute_cv_curve(
+        phi, C = compute_cv_curve_advanced(
             phi_s,
             N_A,
             area
         )
 
         scale = (
-            ni /
-            intrinsic_carrier_concentration(300)
+                ni /
+                intrinsic_carrier_concentration(300)
         )
 
         results[T] = C * scale
@@ -280,11 +279,76 @@ def compute_gate_voltage_sweep(
         area
 ):
     """
-    Compute gate-voltage-based MOS capacitance curve.
+    Compute advanced MOS C-V as a function of gate voltage.
     """
 
-    return compute_cv_curve(
-        Vg,
+    phi_s = approximate_surface_potential(Vg)
+
+    _, C = compute_cv_curve_advanced(
+        phi_s,
         N_A,
         area
+    )
+
+    return np.array(Vg), np.array(C)
+
+def compute_error_analysis(
+        phi_s,
+        N_A,
+        area
+):
+    """
+    Compare analytical and numerical MOS C-V
+    and compute error metrics.
+    """
+
+    C_ox = oxide_capacitance(area)
+
+    C_theory = []
+
+    for phi in phi_s:
+
+        C_s = semiconductor_capacitance(
+            phi,
+            N_A,
+            area
+        )
+
+        C_total = total_capacitance(
+            C_ox,
+            C_s
+        )
+
+        C_theory.append(C_total)
+
+    C_theory = np.array(C_theory)
+
+    _, C_num = compute_cv_curve_advanced(
+        phi_s,
+        N_A,
+        area
+    )
+
+    relative_error = np.abs(
+        (C_num - C_theory) / C_theory
+    )
+
+    mean_error = np.mean(
+        relative_error
+    )
+
+    max_error = np.max(
+        relative_error
+    )
+
+    rms_error = np.sqrt(
+        np.mean(relative_error ** 2)
+    )
+
+    return (
+        phi_s,
+        relative_error,
+        mean_error,
+        max_error,
+        rms_error
     )

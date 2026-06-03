@@ -13,6 +13,24 @@ from src.physics.self_consistent_mos import (
     compute_self_consistent_cv,
 )
 
+from src.physics.frequency import (
+    high_frequency_capacitance,
+    low_frequency_capacitance,
+)
+
+from src.physics.moscap import (
+    flat_band_voltage,
+    mos_capacitance_regime,
+    oxide_capacitance,
+)
+
+from src.physics.self_consistent_mos import (
+    surface_potential,
+)
+
+from src.physics.simulation import (
+    compute_cv_curve_advanced,
+)
 
 def test_fermi_potential_positive():
     """
@@ -165,3 +183,67 @@ def test_poisson_solver_finite():
     )
 
     assert np.all(np.isfinite(phi))
+
+def test_flat_band_voltage():
+    """
+    Flat-band voltage should equal work-function
+    difference when oxide charge is zero.
+    """
+
+    Vfb = flat_band_voltage(
+        phi_ms=0.2,
+        Q_ox=0.0,
+        C_ox=1e-6
+    )
+
+    assert Vfb == 0.2
+
+def test_accumulation_regime():
+    """
+    Accumulation should return oxide capacitance.
+    """
+
+    C_ox = oxide_capacitance(1e-6)
+
+    C = mos_capacitance_regime(
+        -0.1,
+        1e23,
+        1e-6,
+        C_ox
+    )
+
+    assert C == C_ox
+
+def test_surface_potential():
+    """
+    Surface potential should be last node.
+    """
+
+    phi = np.array([0, 1, 2, 3])
+
+    assert surface_potential(phi) == 3
+
+def test_frequency_capacitances_positive():
+
+    Cox = 1e-6
+    Cs = 1e-7
+
+    Chf = high_frequency_capacitance(Cox, Cs)
+    Clf = low_frequency_capacitance(Cox)
+
+    assert Chf > 0
+    assert Clf > 0
+
+def test_advanced_cv_curve():
+
+    phi_s = np.linspace(-0.2, 1.0, 50)
+
+    phi, C = compute_cv_curve_advanced(
+        phi_s,
+        1e23,
+        1e-6
+    )
+
+    assert len(phi) == len(C)
+    assert np.all(C > 0)
+
