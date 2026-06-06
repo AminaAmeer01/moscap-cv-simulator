@@ -137,6 +137,51 @@ def compute_cv_curve_advanced(phi_s, N_A, area):
 
     return np.array(phi_s), np.array(C_total)
 
+def compute_theoretical_cv(
+        phi_s,
+        N_A,
+        area
+):
+    """
+    Compute analytical MOS capacitance curve.
+
+    Parameters
+    ----------
+    phi_s : ndarray
+        Surface potential values.
+
+    N_A : float
+        Acceptor concentration.
+
+    area : float
+        Capacitor area.
+
+    Returns
+    -------
+    ndarray
+        Analytical MOS capacitance.
+    """
+
+    C_ox = oxide_capacitance(area)
+
+    C_theory = []
+
+    for phi in phi_s:
+
+        C_s = semiconductor_capacitance(
+            phi,
+            N_A,
+            area
+        )
+
+        C_total = total_capacitance(
+            C_ox,
+            C_s
+        )
+
+        C_theory.append(C_total)
+
+    return np.array(C_theory)
 
 def plot_cv_curve(phi_s, C_total):
     """
@@ -302,26 +347,11 @@ def compute_error_analysis(
     and compute error metrics.
     """
 
-    C_ox = oxide_capacitance(area)
-
-    C_theory = []
-
-    for phi in phi_s:
-
-        C_s = semiconductor_capacitance(
-            phi,
-            N_A,
-            area
-        )
-
-        C_total = total_capacitance(
-            C_ox,
-            C_s
-        )
-
-        C_theory.append(C_total)
-
-    C_theory = np.array(C_theory)
+    C_theory = compute_theoretical_cv(
+        phi_s,
+        N_A,
+        area
+    )
 
     _, C_num = compute_cv_curve_advanced(
         phi_s,
@@ -351,4 +381,31 @@ def compute_error_analysis(
         mean_error,
         max_error,
         rms_error
+    )
+
+def compute_theory_comparison(
+        phi_s,
+        N_A,
+        area
+):
+    """
+    Compare analytical and regime-aware MOS models.
+    """
+
+    C_theory = compute_theoretical_cv(
+        phi_s,
+        N_A,
+        area
+    )
+
+    _, C_num = compute_cv_curve_advanced(
+        phi_s,
+        N_A,
+        area
+    )
+
+    return (
+        phi_s,
+        C_theory,
+        C_num
     )
