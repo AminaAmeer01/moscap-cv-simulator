@@ -87,22 +87,6 @@ def semiconductor_capacitance(
 ) -> float:
     """
     Compute semiconductor depletion capacitance.
-
-    Parameters
-    ----------
-    phi_s : float
-        Surface potential (V).
-
-    N_A : float
-        Acceptor concentration (1/m³).
-
-    area : float
-        Capacitor area (m²).
-
-    Returns
-    -------
-    float
-        Semiconductor capacitance (F).
     """
 
     if area <= 0:
@@ -110,7 +94,10 @@ def semiconductor_capacitance(
             "Capacitor area must be positive."
         )
 
-    W = depletion_width(phi_s, N_A)
+    W = depletion_width(
+        max(phi_s, 1e-12),
+        N_A
+    )
 
     return epsilon_si * area / W
 
@@ -257,3 +244,4 @@ def mos_capacitance_regime(
     # Strong inversion
     else:
         return C_ox
+

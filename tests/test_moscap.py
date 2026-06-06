@@ -1,5 +1,6 @@
 import math
 import pytest
+import numpy as np
 
 from src.physics.semiconductor import intrinsic_carrier_concentration
 
@@ -85,3 +86,18 @@ def test_negative_area_raises():
     """
     with pytest.raises(ValueError):
         oxide_capacitance(-1e-6)
+
+
+def test_zero_surface_potential():
+    """
+    Semiconductor capacitance should remain finite
+    at zero surface potential.
+    """
+
+    C = semiconductor_capacitance(
+        0.0,
+        1e23,
+        1e-6
+    )
+
+    assert np.isfinite(C)
