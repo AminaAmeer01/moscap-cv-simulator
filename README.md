@@ -9,6 +9,7 @@
 ![Simulation](https://img.shields.io/badge/Simulation-MOSCAP-orange)
 ![Numerics](https://img.shields.io/badge/Numerics-Finite%20Difference-red)
 ![Status](https://img.shields.io/badge/Status-Research%20Project-purple)
+![Tests](https://github.com/AminaAmeer01/moscap-cv-simulator/actions/workflows/python-tests.yml/badge.svg)
 
 A scientific Python project for simulating the **Capacitance–Voltage (C–V) characteristics** of Metal–Oxide–Semiconductor (MOS) capacitors using analytical semiconductor physics, regime-based electrostatic models, and numerical Poisson solvers.
 
@@ -26,6 +27,8 @@ The simulator is designed for educational, computational physics, and explorator
 ---
 
 # Project Overview
+
+This project combines analytical MOS capacitor theory, finite-difference Poisson solvers, and self-consistent electrostatic simulations within a modular Python framework for semiconductor device modeling.
 
 ![MOSCAP Simulation](figures/readme_style.png)
 
@@ -76,6 +79,10 @@ This project implements physically meaningful MOS electrostatics while maintaini
 - Numerical electrostatic potential calculation
 - Iterative relaxation method
 - Self-consistent charge–potential coupling
+- Self-consistent MOS C–V simulation
+- Electric field extraction
+- Charge density integration
+- MOS regime classification
 - Numerical convergence analysis
 - Analytical vs numerical validation
 - Relative error analysis
@@ -95,6 +102,7 @@ This project implements physically meaningful MOS electrostatics while maintaini
 - Documented scientific modules
 - Research-oriented repository structure
 - Continuous integration ready
+- 36 automated tests covering physics and numerical modules
 
 ## Visualization
 
@@ -111,6 +119,20 @@ The simulator generates:
 
 ---
 
+# Recent Improvements
+
+Recent development work added:
+
+- Self-consistent Poisson–Boltzmann MOS solver
+- MOS regime classification
+- Analytical vs numerical comparison tools
+- Error-analysis framework
+- Doping sweep simulations
+- Expanded automated test suite
+- Additional validation and edge-case testing
+
+---
+
 # Project Structure
 
 ```text
@@ -124,6 +146,7 @@ moscap-cv-simulator/
 │       ├── simulation.py
 │       ├── poisson.py
 │       ├── electrostatics.py
+│       ├── device.py
 │       └── self_consistent_mos.py
 │
 ├── examples/
@@ -141,10 +164,11 @@ moscap-cv-simulator/
 │   ├── test_moscap.py
 │   ├── test_cv.py
 │   ├── test_semiconductor.py
-│   └── test_poisson.py
+│   ├── test_poisson.py
+│   ├── test_simulation.py
+│   └── test_advanced_physics.py
 │
 ├── figures/
-│
 ├── requirements.txt
 ├── README.md
 └── .github/
@@ -159,7 +183,8 @@ moscap-cv-simulator/
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/moscap-cv-simulator.git
+git clone https://github.com/AminaAmeer01/moscap-cv-simulator.git
+
 cd moscap-cv-simulator
 ```
 
@@ -235,7 +260,7 @@ python examples/gate_voltage_cv.py
 python examples/theory_comparison.py
 ```
 
-## Project structure
+## Numerical Error Analysis
 
 ```bash
 python examples/numerical_error_analysis.py
@@ -251,6 +276,15 @@ python examples/poisson_demo.py
 
 # Running Tests
 
+The automated test suite validates:
+
+- Semiconductor physics calculations
+- MOS capacitance models
+- Poisson solver behavior
+- Self-consistent MOS simulations
+- Numerical stability
+- Error-analysis workflows
+
 ```bash
 pytest
 ```
@@ -258,7 +292,7 @@ pytest
 ## Expected Output
 
 ```text
-22 tests passed
+36 passed
 ```
 
 ---
@@ -266,7 +300,7 @@ pytest
 # Physics Background
 
 The simulator models MOS capacitor electrostatics using standard semiconductor device theory.
-
+The analytical model is based on oxide capacitance, depletion-layer electrostatics, and quasi-static MOS C–V theory, while the numerical framework employs finite-difference solutions of Poisson's equation and self-consistent charge–potential iterations.
 ---
 
 # Oxide Capacitance
@@ -400,7 +434,9 @@ simulation and TCAD software.
 The implementation is provided in:
 
 `src/physics/self_consistent_mos.py`
+
 ---
+
 ### Example Potential Profile
 
 The project includes an iterative electrostatic solver
@@ -499,7 +535,6 @@ $$
 The electrostatic potential is solved iteratively until convergence.
 
 ---
-
 # Self-Consistent Electrostatic Solver
 
 The simulator additionally implements a nonlinear self-consistent electrostatic framework.
@@ -514,13 +549,29 @@ $$
 p = n_i e^{-\phi/V_T}
 $$
 
+The semiconductor charge density is computed as:
+
+$$
+\rho = q(p - n - N_A)
+$$
+
+where:
+
+- $\rho$ = charge density
+- $q$ = elementary charge
+- $p$ = hole concentration
+- $n$ = electron concentration
+- $N_A$ = acceptor concentration
+
 with thermal voltage:
 
 $$
 V_T = \frac{k_B T}{q}
 $$
 
-The electrostatic potential and charge density are solved iteratively until self-consistency is achieved.
+The charge density is coupled to the Poisson equation and solved iteratively until electrostatic self-consistency is achieved.
+
+This approach forms the basis of many semiconductor device simulators and TCAD frameworks.
 
 ---
 
@@ -569,6 +620,16 @@ The project includes:
 ![Oxide Sweep](figures/tox_sweep.png)
 
 ---
+## Doping Sweep
+
+![Doping Sweep](figures/doping_sweep.png)
+
+---
+## Self-Consistent MOS Potential
+
+![Self Consistent MOS](figures/self_consistent_potential.png)
+
+---
 
 ## Poisson Solver
 
@@ -581,12 +642,6 @@ The project includes a finite-difference solution of the one-dimensional Poisson
 ## Gate Voltage Based Simulation
 
 ![Gate Voltage CV](figures/gate_voltage_cv.png)
-
----
-
-## Poisson Solver
-
-![Poisson Solver](figures/poisson_solution.png)
 
 ---
 
@@ -616,10 +671,13 @@ The regime-aware MOS behavior is implemented in:
 
 ```python
 mos_capacitance_regime()
+```
 
-within:
+located in:
+
+```text
 src/physics/moscap.py
-
+```
 
 ---
 
@@ -686,6 +744,12 @@ The project is designed to support transparent and reproducible computational ph
 
 Syeda Amina Ameer
 
-MS Physics — Material Physics & Nanoscience
+M.Sc. Physics (Material Physics and Nanoscience)
 
 University of Bologna
+
+Research interests:
+- Semiconductor device physics
+- Computational physics
+- Numerical modeling
+- Nanoscience
