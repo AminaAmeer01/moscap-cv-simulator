@@ -9,7 +9,7 @@
 ![Simulation](https://img.shields.io/badge/Simulation-MOSCAP-orange)
 ![Numerics](https://img.shields.io/badge/Numerics-Finite%20Difference-red)
 ![Status](https://img.shields.io/badge/Status-Research%20Project-purple)
-![Tests](https://github.com/AminaAmeer01/moscap-cv-simulator/actions/workflows/python-tests.yml/badge.svg)
+![Tests](https://github.com/AminaAmeer01/moscap-cv-simulator/actions/workflows/tests.yml/badge.svg)
 
 A scientific Python project for simulating the **Capacitance–Voltage (C–V) characteristics** of Metal–Oxide–Semiconductor (MOS) capacitors using analytical semiconductor physics, regime-based electrostatic models, and numerical Poisson solvers.
 
