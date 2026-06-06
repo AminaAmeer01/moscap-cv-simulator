@@ -1,20 +1,11 @@
-import sys
 import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-sys.path.append(BASE_DIR)
-
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.physics.moscap import (
-    oxide_capacitance,
-    semiconductor_capacitance,
-    total_capacitance
-)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 from src.physics.simulation import (
-    compute_cv_curve_advanced
+    compute_theory_comparison
 )
 
 # =====================================================
@@ -27,33 +18,10 @@ N_A = 1e23
 phi_s = np.linspace(0.01, 0.6, 200)
 
 # =====================================================
-# Analytical Model
+# Theory vs Numerical Comparison
 # =====================================================
 
-C_ox = oxide_capacitance(area)
-
-C_theory = []
-
-for phi in phi_s:
-
-    C_s = semiconductor_capacitance(
-        phi,
-        N_A,
-        area
-    )
-
-    C_total = total_capacitance(
-        C_ox,
-        C_s
-    )
-
-    C_theory.append(C_total)
-
-# =====================================================
-# Numerical / Advanced Model
-# =====================================================
-
-phi_num, C_num = compute_cv_curve_advanced(
+phi_num, C_theory, C_num = compute_theory_comparison(
     phi_s,
     N_A,
     area
